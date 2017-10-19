@@ -1,9 +1,4 @@
 ﻿using ComeCapture.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ComeCapture.Models
 {
@@ -19,10 +14,6 @@ namespace ComeCapture.Models
         {
             Name = name;
             Limit = MainImage.Current.Limit.Clone();
-        }
-        public NameAndLimit()
-        {
-
         }
     }
 }

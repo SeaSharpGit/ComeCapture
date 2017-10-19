@@ -60,15 +60,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\ScreenHelper.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Properties\Resources.Designer.cs" />
-    <Compile Include="Service\ImageHelper.cs" />
-    <Compile Include="Service\KeyboardHook.cs" />
-    <Compile Include="Service\RelayCommand.cs" />
-    <Compile Include="Service\WpfHelper.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\WpfHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\ArrowTool.cs" />
@@ -85,13 +85,13 @@
     <Compile Include="Controls\ToolButton.cs" />
     <Compile Include="Controls\ZoomThumb.cs" />
     <Compile Include="Models\AppModel.cs" />
-    <Compile Include="Models\ColorConverter.cs" />
+    <Compile Include="Converters\ColorConverter.cs" />
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\Limit.cs" />
     <Compile Include="Models\NameAndLimit.cs" />
-    <Compile Include="Models\SizeConverter.cs" />
+    <Compile Include="Converters\SizeConverter.cs" />
     <Compile Include="Models\Tool.cs" />
-    <Compile Include="Models\ToolConverter.cs" />
+    <Compile Include="Converters\ToolConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

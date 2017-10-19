@@ -1,19 +1,17 @@
-﻿using System;
-using System.Drawing;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using System.Drawing.Imaging;
-using System.Windows.Interop;
-using System.Runtime.InteropServices;
-using ComeCapture.Service;
-using System.Windows.Media;
-using System.Diagnostics;
-using System.Windows.Controls;
-using ComeCapture.Controls;
-using System.Collections.Generic;
+﻿using ComeCapture.Controls;
 using ComeCapture.Models;
+using ComeCapture.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ComeCapture
 {
@@ -49,25 +47,20 @@ namespace ComeCapture
             Current = this;
             InitializeComponent();
             DataContext = AppModel.Current;
-            Left = 0;
-            Top = 0;
-            Width = ScreenWidth;
-            Height = ScreenHeight;
-            Background = new ImageBrush(GetFullBitmapSource());
+            Background = new ImageBrush(ImageHelper.GetFullBitmapSource());
             WpfHelper.MainDispatcher = Dispatcher;
             MainCanvas.Children.Add(MainImage.Current);
             MainCanvas.Children.Add(ImageEditBar.Current);
             MainCanvas.Children.Add(SizeColorBar.Current);
-            IsVisibleChanged += (sender, e) =>
-            {
-                Activate();
-            };
         }
 
-        public new bool? ShowDialog()
+        private void MaxWindow()
         {
-            _IsShowDialog = true;
-            return base.ShowDialog();
+            Left = 0;
+            Top = 0;
+            Width = ScreenWidth;
+            Height = ScreenHeight;
+            Activate();
         }
 
         #region 注册画图
@@ -114,7 +107,7 @@ namespace ComeCapture
                     Thread.Sleep(150);
                     WpfHelper.SafeRun(() =>
                     {
-                        var source = GetBitmapSource();
+                        var source = GetCapture();
                         if (source != null)
                         {
                             ImageHelper.SaveToPng(source, dlg.FileName);
@@ -127,6 +120,11 @@ namespace ComeCapture
             }
         }
         #endregion
+
+        private BitmapSource GetCapture()
+        {
+            return ImageHelper.GetBitmapSource((int)AppModel.Current.MaskLeftWidth + 1, (int)AppModel.Current.MaskTopHeight + 1, (int)MainImage.Current.ActualWidth - 2, (int)MainImage.Current.ActualHeight - 2); ;
+        }
 
         #region 退出截图
         public void OnCancel()
@@ -144,7 +142,7 @@ namespace ComeCapture
                 Thread.Sleep(50);
                 WpfHelper.SafeRun(() =>
                 {
-                    var source = GetBitmapSource();
+                    var source = GetCapture();
                     if (source != null)
                     {
                         Clipboard.SetImage(source);
@@ -158,8 +156,10 @@ namespace ComeCapture
                         Close();
                     }
                 });
-            }));
-            t.IsBackground = true;
+            }))
+            {
+                IsBackground = true
+            };
             t.Start();
         }
         #endregion
@@ -262,80 +262,6 @@ namespace ComeCapture
             {
                 Close();
             }
-        }
-        #endregion
-
-        #region 截图
-        /// <summary>
-        /// 截图区域截图
-        /// </summary>
-        public BitmapSource GetBitmapSource()
-        {
-            return GetBitmapSource((int)AppModel.Current.MaskLeftWidth + 1, (int)AppModel.Current.MaskTopHeight + 1, (int)MainImage.Current.ActualWidth - 2, (int)MainImage.Current.ActualHeight - 2);
-        }
-
-        /// <summary>
-        /// 全屏截图
-        /// </summary>
-        public BitmapSource GetFullBitmapSource()
-        {
-            return GetBitmapSource(0, 0, Convert.ToInt32(ScreenWidth), Convert.ToInt32(ScreenHeight));
-        }
-
-        public static BitmapSource GetBitmapSource(int x, int y, int width, int height)
-        {
-            if (width <= 0 || height <= 0)
-            {
-                return null;
-            }
-            var bounds = GetPhysicalDisplaySize();
-            var screenWidth = bounds.Width;
-            var screenHeight = bounds.Height;
-
-            var scaleWidth = (screenWidth * 1.0) / ScreenWidth;
-            var scaleHeight = (screenHeight * 1.0) / ScreenHeight;
-
-            var w = (int)(width * scaleWidth);
-            var h = (int)(height * scaleHeight);
-            var l = (int)(x * scaleWidth);
-            var t = (int)(y * scaleHeight);
-
-            _Bitmap = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            var bmpGraphics = Graphics.FromImage(_Bitmap);
-            bmpGraphics.CopyFromScreen(l, t, 0, 0, _Bitmap.Size);
-            return Imaging.CreateBitmapSourceFromHBitmap(
-                _Bitmap.GetHbitmap(),
-                IntPtr.Zero,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
-        }
-        #endregion
-
-        #region 屏幕分辨率
-        [DllImport("user32.dll", EntryPoint = "ReleaseDC")]
-        public static extern IntPtr ReleaseDC(IntPtr hWnd, IntPtr hDc);
-
-        [DllImport("gdi32.dll")]
-        public static extern int GetDeviceCaps(
-        IntPtr hdc, // handle to DC
-        int nIndex // index of capability
-        );
-
-        static System.Drawing.Size GetPhysicalDisplaySize()
-        {
-            Graphics g = Graphics.FromHwnd(IntPtr.Zero);
-            IntPtr desktop = g.GetHdc();
-            int physicalScreenHeight = GetDeviceCaps(desktop, (int)DeviceCap.Desktopvertres);
-            int physicalScreenWidth = GetDeviceCaps(desktop, (int)DeviceCap.Desktophorzres);
-            ReleaseDC(IntPtr.Zero, desktop);
-            g.Dispose();
-            return new System.Drawing.Size(physicalScreenWidth, physicalScreenHeight);
-        }
-
-        public enum DeviceCap
-        {
-            Desktopvertres = 117,
-            Desktophorzres = 118
         }
         #endregion
 

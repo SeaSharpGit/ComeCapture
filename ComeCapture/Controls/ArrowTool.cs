@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -16,11 +13,6 @@ namespace ComeCapture.Controls
         static ArrowTool()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ArrowTool), new FrameworkPropertyMetadata(typeof(ArrowTool)));
-        }
-
-        public ArrowTool()
-        {
-            Current = this;
         }
 
         public List<Point> CreateArrow(Point start, Point end)

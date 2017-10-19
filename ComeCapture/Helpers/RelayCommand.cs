@@ -8,7 +8,7 @@
 using System;
 using System.Windows.Input;
 
-namespace ComeCapture.Service
+namespace ComeCapture.Helpers
 {
     /// <summary>
     /// 界面命令类
@@ -88,7 +88,7 @@ namespace ComeCapture.Service
 
         public void RaiseCanExecuteChanged()
         {
-            System.Windows.Input.CommandManager.InvalidateRequerySuggested();
+            CommandManager.InvalidateRequerySuggested();
         }
     }
 }

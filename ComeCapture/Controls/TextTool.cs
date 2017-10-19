@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -22,7 +17,7 @@ namespace ComeCapture.Controls
             Current = this;
         }
 
-        public static TextTool Current;
+        public static TextTool Current = null;
 
         #region 属性 FontSizes
         private static Dictionary<int, int> _FontSizes;

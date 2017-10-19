@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -21,7 +16,7 @@ namespace ComeCapture.Controls
             Current = this;
         }
 
-        public static EllipseTool Current;
+        public static EllipseTool Current = null;
 
         #region LineThickness DependencyProperty
         public double LineThickness

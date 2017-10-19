@@ -6,10 +6,7 @@
  * description : 通用类型基类
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace ComeCapture.Models
 {

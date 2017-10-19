@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ComeCapture.Models
+﻿namespace ComeCapture.Models
 {
     /// <summary>
     /// 图片移动的极限值
