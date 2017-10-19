@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,37 +56,50 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\EntityBase.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Service\ImageHelper.cs" />
+    <Compile Include="Service\KeyboardHook.cs" />
+    <Compile Include="Service\RelayCommand.cs" />
+    <Compile Include="Service\WpfHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ArrowTool.cs" />
+    <Compile Include="Controls\EllipseTool.cs" />
+    <Compile Include="Controls\ImageEditBar.cs" />
+    <Compile Include="Controls\ImageEditor.cs" />
+    <Compile Include="Controls\KeyboardTextBox.cs" />
+    <Compile Include="Controls\LineTool.cs" />
+    <Compile Include="Controls\MainImage.cs" />
+    <Compile Include="Controls\RectangleTool.cs" />
+    <Compile Include="Controls\SizeColorBar.cs" />
+    <Compile Include="Controls\TextBoxControl.cs" />
+    <Compile Include="Controls\TextTool.cs" />
+    <Compile Include="Controls\ToolButton.cs" />
+    <Compile Include="Controls\ZoomThumb.cs" />
+    <Compile Include="Models\AppModel.cs" />
+    <Compile Include="Models\ColorConverter.cs" />
+    <Compile Include="Models\Direction.cs" />
+    <Compile Include="Models\Limit.cs" />
+    <Compile Include="Models\NameAndLimit.cs" />
+    <Compile Include="Models\SizeConverter.cs" />
+    <Compile Include="Models\Tool.cs" />
+    <Compile Include="Models\ToolConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -92,6 +107,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cut.ico" />
+    <Resource Include="Resources\保存.png" />
+    <Resource Include="Resources\后退.png" />
+    <Resource Include="Resources\笔刷.png" />
+    <Resource Include="Resources\箭头.png" />
+    <Resource Include="Resources\设置.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
