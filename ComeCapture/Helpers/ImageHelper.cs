@@ -21,7 +21,7 @@ namespace ComeCapture.Helpers
             }
         }
         #endregion
-        
+
         #region 截图
         public static BitmapSource GetBitmapSource(int x, int y, int width, int height)
         {
@@ -55,14 +55,23 @@ namespace ComeCapture.Helpers
             var bounds = ScreenHelper.GetPhysicalDisplaySize();
             var screenWidth = bounds.Width;
             var screenHeight = bounds.Height;
-            MainWindow._Bitmap = new Bitmap(bounds.Width, bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            var bmpGraphics = Graphics.FromImage(MainWindow._Bitmap);
-            bmpGraphics.CopyFromScreen(0, 0, 0, 0, MainWindow._Bitmap.Size);
+            _Bitmap = new Bitmap(bounds.Width, bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            var bmpGraphics = Graphics.FromImage(_Bitmap);
+            bmpGraphics.CopyFromScreen(0, 0, 0, 0, _Bitmap.Size);
             return Imaging.CreateBitmapSourceFromHBitmap(
-                MainWindow._Bitmap.GetHbitmap(),
+                _Bitmap.GetHbitmap(),
                 IntPtr.Zero,
                 Int32Rect.Empty,
                 BitmapSizeOptions.FromEmptyOptions());
+        }
+        #endregion
+
+        #region 获取RGB
+        private static Bitmap _Bitmap = null;
+        public static string GetRGB(System.Windows.Point point)
+        {
+            var color = _Bitmap.GetPixel((int)point.X, (int)point.Y);
+            return "RGB:（" + color.R.ToString() + "," + color.G.ToString() + "," + color.B.ToString() + "）";
         } 
         #endregion
     }

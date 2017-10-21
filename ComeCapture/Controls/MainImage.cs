@@ -29,6 +29,7 @@ namespace ComeCapture.Controls
 
         public MainImage()
         {
+            _Current = this;
             AddHandler(Thumb.DragStartedEvent, new DragStartedEventHandler(OnDragStart));
             AddHandler(Thumb.DragCompletedEvent, new DragCompletedEventHandler(OnDragCompleted));
             AddHandler(Thumb.DragDeltaEvent, new DragDeltaEventHandler(OnDragDelta));
@@ -42,15 +43,7 @@ namespace ComeCapture.Controls
         {
             get
             {
-                if (_Current == null)
-                {
-                    _Current = new MainImage();
-                }
                 return _Current;
-            }
-            set
-            {
-                _Current = value;
             }
         }
         #endregion
@@ -410,8 +403,10 @@ namespace ComeCapture.Controls
                     Stroke = LineTool.Current.LineBrush,
                     StrokeThickness = LineTool.Current.LineThickness
                 };
-                points = new List<Point>();
-                points.Add(screen);
+                points = new List<Point>
+                {
+                    screen
+                };
                 Panel.SetZIndex(_Line, -1);
                 MainWindow.Current.MainCanvas.Children.Add(_Line);
             }
@@ -663,7 +658,7 @@ namespace ComeCapture.Controls
         #region 刷新RGB
         private void OnMove(object sender, MouseEventArgs e)
         {
-            AppModel.Current.ChangeShowRGB(PointToScreen(e.GetPosition(this)));
+            AppModel.Current.SetRGB(PointToScreen(e.GetPosition(this)));
         }
         #endregion
 

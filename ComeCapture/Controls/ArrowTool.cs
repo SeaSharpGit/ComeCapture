@@ -15,6 +15,11 @@ namespace ComeCapture.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ArrowTool), new FrameworkPropertyMetadata(typeof(ArrowTool)));
         }
 
+        public ArrowTool()
+        {
+            _Current = this;
+        }
+
         public List<Point> CreateArrow(Point start, Point end)
         {
             var tan = Math.Atan((end.Y - start.Y) / (end.X - start.X));
@@ -41,7 +46,16 @@ namespace ComeCapture.Controls
             };
         }
 
-        public static ArrowTool Current;
+        #region 属性 Current
+        private static ArrowTool _Current = null;
+        public static ArrowTool Current
+        {
+            get
+            {
+                return _Current;
+            }
+        }
+        #endregion
 
         #region LineThickness DependencyProperty
         public double LineThickness

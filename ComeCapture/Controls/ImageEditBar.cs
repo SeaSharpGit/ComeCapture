@@ -11,6 +11,11 @@ namespace ComeCapture.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ImageEditBar), new FrameworkPropertyMetadata(typeof(ImageEditBar)));
         }
 
+        public ImageEditBar()
+        {
+            _Current = this;
+        }
+
         #region 属性 Current
         private static ImageEditBar _Current = null;
         public static ImageEditBar Current
@@ -22,10 +27,6 @@ namespace ComeCapture.Controls
                     _Current = new ImageEditBar();
                 }
                 return _Current;
-            }
-            set
-            {
-                _Current = value;
             }
         }
         #endregion

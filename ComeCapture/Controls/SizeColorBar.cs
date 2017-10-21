@@ -25,6 +25,11 @@ namespace ComeCapture.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SizeColorBar), new FrameworkPropertyMetadata(typeof(SizeColorBar)));
         }
 
+        public SizeColorBar()
+        {
+            _Current = this;
+        }
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -70,10 +75,6 @@ namespace ComeCapture.Controls
                     _Current = new SizeColorBar();
                 }
                 return _Current;
-            }
-            set
-            {
-                _Current = value;
             }
         }
         #endregion

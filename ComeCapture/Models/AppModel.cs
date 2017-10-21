@@ -1,4 +1,5 @@
 ﻿using ComeCapture.Controls;
+using ComeCapture.Helpers;
 using ComeCapture.Models;
 
 namespace ComeCapture
@@ -174,58 +175,9 @@ namespace ComeCapture
             }
         }
 
-        public void ChangeShowRGB(System.Windows.Point point)
+        public void SetRGB(System.Windows.Point point)
         {
-            var color = MainWindow._Bitmap.GetPixel((int)point.X, (int)point.Y);
-            ShowRGB = "RGB:（" + color.R.ToString() + "," + color.G.ToString() + "," + color.B.ToString() + "）";
-        }
-        #endregion
-
-        #region 属性 Letter
-        private string _Letter = "X";
-        public string Letter
-        {
-            get
-            {
-                return _Letter;
-            }
-            set
-            {
-                _Letter = value;
-                RaisePropertyChanged(() => Letter);
-            }
-        }
-        #endregion
-
-        #region 属性 IsCtrl
-        private bool _IsCtrl = false;
-        public bool IsCtrl
-        {
-            get
-            {
-                return _IsCtrl;
-            }
-            set
-            {
-                _IsCtrl = value;
-                RaisePropertyChanged(() => IsCtrl);
-            }
-        }
-        #endregion
-
-        #region 属性 IsAlt
-        private bool _IsAlt = true;
-        public bool IsAlt
-        {
-            get
-            {
-                return _IsAlt;
-            }
-            set
-            {
-                _IsAlt = value;
-                RaisePropertyChanged(() => IsAlt);
-            }
+            ShowRGB = ImageHelper.GetRGB(point);
         }
         #endregion
 

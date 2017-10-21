@@ -23,7 +23,6 @@ namespace ComeCapture
         public static double ScreenWidth = SystemParameters.PrimaryScreenWidth;
         public static double ScreenHeight = SystemParameters.PrimaryScreenHeight;
         public static int MinSize = 10;
-        public static MainWindow Current = null;
 
         //画图注册名称集合
         public List<NameAndLimit> list = new List<NameAndLimit>();
@@ -34,26 +33,32 @@ namespace ComeCapture
         private bool _IsMouseDown = false;
         //是否截图完毕
         private bool _IsCapture = false;
-        //关闭时是否有返回值(Show/ShowDialog)
-        private bool _IsShowDialog = false;
-        //背景图（获取RGB时使用）
-        public static Bitmap _Bitmap;
 
         private int _X0 = 0;
         private int _Y0 = 0;
 
         public MainWindow()
         {
-            Current = this;
+            _Current = this;
             InitializeComponent();
             DataContext = AppModel.Current;
             Background = new ImageBrush(ImageHelper.GetFullBitmapSource());
             WpfHelper.MainDispatcher = Dispatcher;
-            MainCanvas.Children.Add(MainImage.Current);
-            MainCanvas.Children.Add(ImageEditBar.Current);
-            MainCanvas.Children.Add(SizeColorBar.Current);
+            MaxWindow();
         }
 
+        #region 属性 Current
+        private static MainWindow _Current = null;
+        public static MainWindow Current
+        {
+            get
+            {
+                return _Current;
+            }
+        }
+        #endregion
+
+        #region 全屏+置顶
         private void MaxWindow()
         {
             Left = 0;
@@ -61,12 +66,13 @@ namespace ComeCapture
             Width = ScreenWidth;
             Height = ScreenHeight;
             Activate();
-        }
+        } 
+        #endregion
 
         #region 注册画图
         public static void Register(object control)
         {
-            var name = "Draw" + Current.num.ToString();
+            var name = "Draw" + Current.num;
             Current.MainCanvas.RegisterName(name, control);
             Current.list.Add(new NameAndLimit(name));
             Current.num++;
@@ -94,12 +100,14 @@ namespace ComeCapture
         #region 保存
         public void OnSave()
         {
-            var dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "截图" + DateTime.Now.ToString("yyyyMMddhhmmss");
-            dlg.Filter = "png|*.png";
-            dlg.AddExtension = true;
-            dlg.RestoreDirectory = true;
-            if (dlg.ShowDialog() == true)
+            var sfd = new Microsoft.Win32.SaveFileDialog
+            {
+                FileName = "截图" + DateTime.Now.ToString("yyyyMMddhhmmss"),
+                Filter = "png|*.png",
+                AddExtension = true,
+                RestoreDirectory = true
+            };
+            if (sfd.ShowDialog() == true)
             {
                 Hidden();
                 Thread t = new Thread(new ThreadStart(() =>
@@ -110,21 +118,25 @@ namespace ComeCapture
                         var source = GetCapture();
                         if (source != null)
                         {
-                            ImageHelper.SaveToPng(source, dlg.FileName);
+                            ImageHelper.SaveToPng(source, sfd.FileName);
                         }
                         Close();
                     });
-                }));
-                t.IsBackground = true;
+                }))
+                {
+                    IsBackground = true
+                };
                 t.Start();
             }
         }
         #endregion
 
+        #region 获取截图
         private BitmapSource GetCapture()
         {
             return ImageHelper.GetBitmapSource((int)AppModel.Current.MaskLeftWidth + 1, (int)AppModel.Current.MaskTopHeight + 1, (int)MainImage.Current.ActualWidth - 2, (int)MainImage.Current.ActualHeight - 2); ;
-        }
+        } 
+        #endregion
 
         #region 退出截图
         public void OnCancel()
@@ -147,14 +159,7 @@ namespace ComeCapture
                     {
                         Clipboard.SetImage(source);
                     }
-                    if (_IsShowDialog)
-                    {
-                        DialogResult = true;
-                    }
-                    else
-                    {
-                        Close();
-                    }
+                    Close();
                 });
             }))
             {
@@ -220,7 +225,7 @@ namespace ComeCapture
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
             var point = e.GetPosition(this);
-            AppModel.Current.ChangeShowRGB(point);
+            AppModel.Current.SetRGB(point);
             if (_IsCapture)
             {
                 return;
