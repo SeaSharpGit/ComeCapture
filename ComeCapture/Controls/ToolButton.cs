@@ -122,8 +122,5 @@ namespace ComeCapture.Controls
 
         }
         #endregion
-
-
-
     }
 }

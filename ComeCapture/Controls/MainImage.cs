@@ -162,8 +162,8 @@ namespace ComeCapture.Controls
         #region 滑动中事件
         private void OnDragDelta(object sender, DragDeltaEventArgs e)
         {
-            var X = e.HorizontalChange;
-            var Y = e.VerticalChange;
+            var X = (int)e.HorizontalChange;
+            var Y = (int)e.VerticalChange;
             switch (Direction)
             {
                 case Direction.Move:
@@ -238,7 +238,7 @@ namespace ComeCapture.Controls
                     case Tool.Rectangle:
                         if (_Rectangle != null)
                         {
-                            ResetLimit(Canvas.GetLeft(_Rectangle), Canvas.GetTop(_Rectangle), Canvas.GetLeft(_Rectangle) + _Rectangle.Width, Canvas.GetTop(_Rectangle) + _Rectangle.Height);
+                            ResetLimit((int)Canvas.GetLeft(_Rectangle), (int)Canvas.GetTop(_Rectangle), (int)Canvas.GetLeft(_Rectangle) + (int)_Rectangle.Width, (int)Canvas.GetTop(_Rectangle) + (int)_Rectangle.Height);
                             MainWindow.Register(_Rectangle);
                             _Rectangle = null;
                         }
@@ -246,7 +246,7 @@ namespace ComeCapture.Controls
                     case Tool.Ellipse:
                         if (_Ellipse != null)
                         {
-                            ResetLimit(Canvas.GetLeft(_Ellipse), Canvas.GetTop(_Ellipse), Canvas.GetLeft(_Ellipse) + _Ellipse.Width, Canvas.GetTop(_Ellipse) + _Ellipse.Height);
+                            ResetLimit((int)Canvas.GetLeft(_Ellipse), (int)Canvas.GetTop(_Ellipse), (int)Canvas.GetLeft(_Ellipse) + (int)_Ellipse.Width, (int)Canvas.GetTop(_Ellipse) + (int)_Ellipse.Height);
                             MainWindow.Register(_Ellipse);
                             _Ellipse = null;
                         }
@@ -255,7 +255,7 @@ namespace ComeCapture.Controls
                         if (_Arrow != null)
                         {
                             geometry.Clear();
-                            ResetLimit(points.Min(p => p.X), points.Min(p => p.Y), points.Max(p => p.X), points.Max(p => p.Y));
+                            ResetLimit((int)points.Min(p => p.X), (int)points.Min(p => p.Y), (int)points.Max(p => p.X), (int)points.Max(p => p.Y));
                             points = null;
                             MainWindow.Register(_Arrow);
                             _Arrow = null;
@@ -265,7 +265,7 @@ namespace ComeCapture.Controls
                         if (_Line != null)
                         {
                             geometry.Clear();
-                            ResetLimit(points.Min(p => p.X), points.Min(p => p.Y), points.Max(p => p.X), points.Max(p => p.Y));
+                            ResetLimit((int)points.Min(p => p.X), (int)points.Min(p => p.Y), (int)points.Max(p => p.X), (int)points.Max(p => p.Y));
                             points = null;
                             MainWindow.Register(_Line);
                             _Line = null;
@@ -282,7 +282,7 @@ namespace ComeCapture.Controls
         #endregion
 
         #region 画矩形
-        private void DrawRectangle(double X, double Y)
+        private void DrawRectangle(int X, int Y)
         {
             if (_Rectangle == null)
             {
@@ -293,33 +293,33 @@ namespace ComeCapture.Controls
                     StrokeThickness = RectangleTool.Current.LineThickness
                 };
                 Panel.SetZIndex(_Rectangle, -1);
-                MainWindow.Current.MainCanvas.Children.Add(_Rectangle);
+                MainWindow.AddControl(_Rectangle);
             }
             if (X > 0)
             {
-                Canvas.SetLeft(_Rectangle, point.X + AppModel.Current.MaskLeftWidth);
-                _Rectangle.Width = X < Width - point.X ? X : Width - point.X;
+                Canvas.SetLeft(_Rectangle, (int)point.X + AppModel.Current.MaskLeftWidth);
+                _Rectangle.Width = X < Width - (int)point.X ? X : (int)Width - (int)point.X;
             }
             else
             {
-                Canvas.SetLeft(_Rectangle, -X < point.X ? point.X + X + AppModel.Current.MaskLeftWidth : AppModel.Current.MaskLeftWidth);
-                _Rectangle.Width = -X < point.X ? -X : point.X;
+                Canvas.SetLeft(_Rectangle, -X < point.X ? (int)point.X + X + AppModel.Current.MaskLeftWidth : AppModel.Current.MaskLeftWidth);
+                _Rectangle.Width = -X < point.X ? -X : (int)point.X;
             }
             if (Y > 0)
             {
-                Canvas.SetTop(_Rectangle, point.Y + AppModel.Current.MaskTopHeight);
-                _Rectangle.Height = Y < Height - point.Y ? Y : Height - point.Y;
+                Canvas.SetTop(_Rectangle, (int)point.Y + AppModel.Current.MaskTopHeight);
+                _Rectangle.Height = Y < Height - point.Y ? Y : (int)Height - (int)point.Y;
             }
             else
             {
-                Canvas.SetTop(_Rectangle, -Y < point.Y ? point.Y + Y + AppModel.Current.MaskTopHeight : AppModel.Current.MaskTopHeight);
-                _Rectangle.Height = -Y < point.Y ? -Y : point.Y;
+                Canvas.SetTop(_Rectangle, -Y < point.Y ? (int)point.Y + Y + AppModel.Current.MaskTopHeight : AppModel.Current.MaskTopHeight);
+                _Rectangle.Height = -Y < point.Y ? -Y : (int)point.Y;
             }
         }
         #endregion
 
         #region 画椭圆
-        private void DrawEllipse(double X, double Y)
+        private void DrawEllipse(int X, int Y)
         {
             if (_Ellipse == null)
             {
@@ -330,33 +330,33 @@ namespace ComeCapture.Controls
                     StrokeThickness = EllipseTool.Current.LineThickness
                 };
                 Panel.SetZIndex(_Ellipse, -1);
-                MainWindow.Current.MainCanvas.Children.Add(_Ellipse);
+                MainWindow.AddControl(_Ellipse);
             }
             if (X > 0)
             {
-                Canvas.SetLeft(_Ellipse, point.X + AppModel.Current.MaskLeftWidth);
-                _Ellipse.Width = X < Width - point.X ? X : Width - point.X;
+                Canvas.SetLeft(_Ellipse, (int)point.X + AppModel.Current.MaskLeftWidth);
+                _Ellipse.Width = X < Width - point.X ? X : (int)Width - (int)point.X;
             }
             else
             {
-                Canvas.SetLeft(_Ellipse, -X < point.X ? point.X + X + AppModel.Current.MaskLeftWidth : AppModel.Current.MaskLeftWidth);
-                _Ellipse.Width = -X < point.X ? -X : point.X;
+                Canvas.SetLeft(_Ellipse, -X < point.X ? (int)point.X + X + AppModel.Current.MaskLeftWidth : AppModel.Current.MaskLeftWidth);
+                _Ellipse.Width = -X < point.X ? -X : (int)point.X;
             }
             if (Y > 0)
             {
-                Canvas.SetTop(_Ellipse, point.Y + AppModel.Current.MaskTopHeight);
-                _Ellipse.Height = Y < Height - point.Y ? Y : Height - point.Y;
+                Canvas.SetTop(_Ellipse, (int)point.Y + AppModel.Current.MaskTopHeight);
+                _Ellipse.Height = Y < Height - point.Y ? Y : (int)Height - point.Y;
             }
             else
             {
-                Canvas.SetTop(_Ellipse, -Y < point.Y ? point.Y + Y + AppModel.Current.MaskTopHeight : AppModel.Current.MaskTopHeight);
-                _Ellipse.Height = -Y < point.Y ? -Y : point.Y;
+                Canvas.SetTop(_Ellipse, -Y < point.Y ? (int)point.Y + Y + AppModel.Current.MaskTopHeight : AppModel.Current.MaskTopHeight);
+                _Ellipse.Height = -Y < point.Y ? -Y : (int)point.Y;
             }
         }
         #endregion
 
         #region 画箭头
-        private void DrawArrow(double X, double Y)
+        private void DrawArrow(int X, int Y)
         {
             var screen = PointToScreen(point);
             if (_Arrow == null)
@@ -367,7 +367,7 @@ namespace ComeCapture.Controls
                     StrokeThickness = ArrowTool.Current.LineThickness
                 };
                 Panel.SetZIndex(_Arrow, -1);
-                MainWindow.Current.MainCanvas.Children.Add(_Arrow);
+                MainWindow.AddControl(_Arrow);
             }
             var point2 = new Point(screen.X + X, screen.Y + Y);
             point2.X = point2.X < AppModel.Current.MaskLeftWidth ? AppModel.Current.MaskLeftWidth : point2.X > AppModel.Current.MaskLeftWidth + Width ? AppModel.Current.MaskLeftWidth + Width : point2.X;
@@ -393,7 +393,7 @@ namespace ComeCapture.Controls
         #endregion
 
         #region 画刷
-        private void DrawLine(double X, double Y)
+        private void DrawLine(int X, int Y)
         {
             var screen = PointToScreen(point);
             if (_Line == null)
@@ -408,11 +408,11 @@ namespace ComeCapture.Controls
                     screen
                 };
                 Panel.SetZIndex(_Line, -1);
-                MainWindow.Current.MainCanvas.Children.Add(_Line);
+                MainWindow.AddControl(_Line);
             }
             var point2 = new Point(screen.X + X, screen.Y + Y);
-            point2.X = point2.X < AppModel.Current.MaskLeftWidth ? AppModel.Current.MaskLeftWidth : point2.X > AppModel.Current.MaskLeftWidth + Width ? AppModel.Current.MaskLeftWidth + Width : point2.X;
-            point2.Y = point2.Y < AppModel.Current.MaskTopHeight ? AppModel.Current.MaskTopHeight : point2.Y > AppModel.Current.MaskTopHeight + Height ? AppModel.Current.MaskTopHeight + Height : point2.Y;
+            point2.X = point2.X < AppModel.Current.MaskLeftWidth ? AppModel.Current.MaskLeftWidth : point2.X > AppModel.Current.MaskLeftWidth + Width ? AppModel.Current.MaskLeftWidth + (int)Width : (int)point2.X;
+            point2.Y = point2.Y < AppModel.Current.MaskTopHeight ? AppModel.Current.MaskTopHeight : point2.Y > AppModel.Current.MaskTopHeight + Height ? AppModel.Current.MaskTopHeight + (int)Height : (int)point2.Y;
             points.Add(point2);
             using (var ctx = geometry.Open())
             {
@@ -457,13 +457,13 @@ namespace ComeCapture.Controls
                 var screen = PointToScreen(point);
                 Canvas.SetLeft(_Text, screen.X);
                 Canvas.SetTop(_Text, screen.Y);
-                MainWindow.Current.MainCanvas.Children.Add(_Text);
+                MainWindow.AddControl(_Text);
             }
         }
         #endregion
 
         #region 拖动截图区域
-        private void OnMove(double X, double Y)
+        private void OnMove(int X, int Y)
         {
             #region X轴移动
             if (X > 0)
@@ -476,7 +476,7 @@ namespace ComeCapture.Controls
             }
             else
             {
-                var max = AppModel.Current.MaskLeftWidth > AppModel.Current.MaskLeftWidth + Width - Limit.Right ? AppModel.Current.MaskLeftWidth + Width - Limit.Right : AppModel.Current.MaskLeftWidth;
+                var max = AppModel.Current.MaskLeftWidth > AppModel.Current.MaskLeftWidth + (int)Width - Limit.Right ? AppModel.Current.MaskLeftWidth + (int)Width - Limit.Right : AppModel.Current.MaskLeftWidth;
                 if (-X > max)
                 {
                     X = -max;
@@ -501,7 +501,7 @@ namespace ComeCapture.Controls
             }
             else
             {
-                var max = AppModel.Current.MaskTopHeight > AppModel.Current.MaskTopHeight + Height - Limit.Bottom ? AppModel.Current.MaskTopHeight + Height - Limit.Bottom : AppModel.Current.MaskTopHeight;
+                var max = AppModel.Current.MaskTopHeight > AppModel.Current.MaskTopHeight + (int)Height - Limit.Bottom ? AppModel.Current.MaskTopHeight + (int)Height - Limit.Bottom : AppModel.Current.MaskTopHeight;
                 if (-Y > max)
                 {
                     Y = -max;
@@ -518,13 +518,13 @@ namespace ComeCapture.Controls
         #endregion
 
         #region 左缩放
-        private void Left(double X)
+        private void Left(int X)
         {
             if (X > 0)
             {
-                var max = MainWindow.Current.list.Count == 0 ? Width - MainWindow.MinSize
-                    : Limit.Left - AppModel.Current.MaskLeftWidth < Width - MainWindow.MinSize ? Limit.Left - AppModel.Current.MaskLeftWidth
-                    : Width - MainWindow.MinSize;
+                var max = MainWindow.Current.list.Count == 0 ? (int)Width - MainWindow.MinSize
+                    : Limit.Left - AppModel.Current.MaskLeftWidth < (int)Width - MainWindow.MinSize ? Limit.Left - AppModel.Current.MaskLeftWidth
+                    : (int)Width - MainWindow.MinSize;
                 if (X > max)
                 {
                     X = max;
@@ -549,7 +549,7 @@ namespace ComeCapture.Controls
         #endregion
 
         #region 右缩放
-        private void Right(double X)
+        private void Right(int X)
         {
             if (X > 0)
             {
@@ -561,9 +561,9 @@ namespace ComeCapture.Controls
             }
             else
             {
-                var max = MainWindow.Current.list.Count == 0 ? Width - MainWindow.MinSize
-                    : AppModel.Current.MaskLeftWidth + Width - Limit.Right < Width - MainWindow.MinSize ? AppModel.Current.MaskLeftWidth + Width - Limit.Right
-                    : Width - MainWindow.MinSize;
+                var max = MainWindow.Current.list.Count == 0 ? (int)Width - MainWindow.MinSize
+                    : AppModel.Current.MaskLeftWidth + (int)Width - Limit.Right < Width - MainWindow.MinSize ? AppModel.Current.MaskLeftWidth + (int)Width - Limit.Right
+                    : (int)Width - MainWindow.MinSize;
                 if (-X > max)
                 {
                     X = -max;
@@ -579,13 +579,13 @@ namespace ComeCapture.Controls
         #endregion
 
         #region 上缩放
-        private void Top(double Y)
+        private void Top(int Y)
         {
             if (Y > 0)
             {
-                var max = MainWindow.Current.list.Count == 0 ? Height - MainWindow.MinSize
-                    : Limit.Top - AppModel.Current.MaskTopHeight < Height - MainWindow.MinSize ? Limit.Top - AppModel.Current.MaskTopHeight
-                    : Height - MainWindow.MinSize;
+                var max = MainWindow.Current.list.Count == 0 ? (int)Height - MainWindow.MinSize
+                    : Limit.Top - AppModel.Current.MaskTopHeight < (int)Height - MainWindow.MinSize ? Limit.Top - AppModel.Current.MaskTopHeight
+                    : (int)Height - MainWindow.MinSize;
                 if (Y > max)
                 {
                     Y = max;
@@ -605,29 +605,11 @@ namespace ComeCapture.Controls
                 Canvas.SetTop(this, Canvas.GetTop(this) + Y);
                 AppModel.Current.MaskTopHeight += Y;
             }
-
-
-
-            //var max = length > 0 ? Height - MainWindow.MinSize : app.MaskTopHeight;
-            //if (max > 0)
-            //{
-            //    if (length > 0 && length > max)
-            //    {
-            //        length = max;
-            //    }
-            //    if (length < 0 && -length > max)
-            //    {
-            //        length = -max;
-            //    }
-            //    Height -= length;
-            //    Canvas.SetTop(this, Canvas.GetTop(this) + length);
-            //    app.MaskTopHeight += length;
-            //}
         }
         #endregion
 
         #region 下缩放
-        private void Bottom(double Y)
+        private void Bottom(int Y)
         {
             if (Y > 0)
             {
@@ -639,9 +621,9 @@ namespace ComeCapture.Controls
             }
             else
             {
-                var max = MainWindow.Current.list.Count == 0 ? Height - MainWindow.MinSize
-                    : AppModel.Current.MaskTopHeight + Height - Limit.Bottom < Height - MainWindow.MinSize ? AppModel.Current.MaskTopHeight + Height - Limit.Bottom
-                    : Height - MainWindow.MinSize;
+                var max = MainWindow.Current.list.Count == 0 ? (int)Height - MainWindow.MinSize
+                    : AppModel.Current.MaskTopHeight + (int)Height - Limit.Bottom < (int)Height - MainWindow.MinSize ? AppModel.Current.MaskTopHeight + (int)Height - Limit.Bottom
+                    : (int)Height - MainWindow.MinSize;
                 if (-Y > max)
                 {
                     Y = -max;
@@ -663,7 +645,7 @@ namespace ComeCapture.Controls
         #endregion
 
         #region 计算图片移动的极限值
-        public void ResetLimit(double left, double top, double right, double bottom)
+        public void ResetLimit(int left, int top, int right, int bottom)
         {
             ResetLeft(left);
             ResetTop(top);
@@ -671,7 +653,7 @@ namespace ComeCapture.Controls
             ResetButtom(bottom);
         }
 
-        private void ResetLeft(double value)
+        private void ResetLeft(int value)
         {
             if (value < Limit.Left)
             {
@@ -679,7 +661,7 @@ namespace ComeCapture.Controls
             }
         }
 
-        private void ResetTop(double value)
+        private void ResetTop(int value)
         {
             if (value < Limit.Top)
             {
@@ -687,7 +669,7 @@ namespace ComeCapture.Controls
             }
         }
 
-        private void ResetRight(double value)
+        private void ResetRight(int value)
         {
             if (value > Limit.Right)
             {
@@ -695,7 +677,7 @@ namespace ComeCapture.Controls
             }
         }
 
-        private void ResetButtom(double value)
+        private void ResetButtom(int value)
         {
             if (value > Limit.Bottom)
             {
@@ -703,7 +685,5 @@ namespace ComeCapture.Controls
             }
         }
         #endregion
-
-
     }
 }

@@ -1,33 +1,31 @@
 ﻿using ComeCapture.Controls;
 using ComeCapture.Helpers;
 using ComeCapture.Models;
+using System.Text;
 
 namespace ComeCapture
 {
     public class AppModel : EntityBase
     {
+        public AppModel()
+        {
+            _Current = this;
+        }
+
         #region 属性 Current
         private static AppModel _Current = null;
         public static AppModel Current
         {
             get
             {
-                if (_Current == null)
-                {
-                    _Current = new AppModel();
-                }
                 return _Current;
-            }
-            set
-            {
-               _Current = value;
             }
         }
         #endregion
 
         #region 属性 MaskLeftWidth
-        private double _MaskLeftWidth = MainWindow.ScreenWidth;
-        public double MaskLeftWidth
+        private int _MaskLeftWidth = MainWindow.ScreenWidth;
+        public int MaskLeftWidth
         {
             get
             {
@@ -43,8 +41,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 MaskRightWidth
-        private double _MaskRightWidth = 0;
-        public double MaskRightWidth
+        private int _MaskRightWidth = 0;
+        public int MaskRightWidth
         {
             get
             {
@@ -59,8 +57,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 MaskTopWidth
-        private double _MaskTopWidth = 0;
-        public double MaskTopWidth
+        private int _MaskTopWidth = 0;
+        public int MaskTopWidth
         {
             get
             {
@@ -75,8 +73,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 MaskTopHeight
-        private double _MaskTopHeight = 0;
-        public double MaskTopHeight
+        private int _MaskTopHeight = 0;
+        public int MaskTopHeight
         {
             get
             {
@@ -92,8 +90,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 MaskBottomHeight
-        private double _MaskBottomHeight = 0;
-        public double MaskBottomHeight
+        private int _MaskBottomHeight = 0;
+        public int MaskBottomHeight
         {
             get
             {
@@ -122,15 +120,20 @@ namespace ComeCapture
             }
         }
 
+        private static StringBuilder sb = new StringBuilder();
         public void ChangeShowSize()
         {
-            ShowSize = (int)MainImage.Current.Width + " × " + (int)MainImage.Current.Height;
+            sb.Clear();
+            sb.Append((int)MainImage.Current.Width);
+            sb.Append(" × ");
+            sb.Append((int)MainImage.Current.Height);
+            ShowSize = sb.ToString();
         }
         #endregion
 
         #region 属性 ShowSizeLeft
-        private double _ShowSizeLeft = 0;
-        public double ShowSizeLeft
+        private int _ShowSizeLeft = 0;
+        public int ShowSizeLeft
         {
             get
             {
@@ -145,8 +148,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 ShowSizeTop
-        private double _ShowSizeTop = 0;
-        public double ShowSizeTop
+        private int _ShowSizeTop = 0;
+        public int ShowSizeTop
         {
             get
             {

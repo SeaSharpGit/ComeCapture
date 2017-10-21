@@ -13,10 +13,19 @@ namespace ComeCapture.Controls
 
         public LineTool()
         {
-            Current = this;
+            _Current = this;
         }
 
-        public static LineTool Current = null;
+        #region 属性 Current
+        private static LineTool _Current = null;
+        public static LineTool Current
+        {
+            get
+            {
+                return _Current;
+            }
+        }
+        #endregion
 
         #region LineThickness DependencyProperty
         public double LineThickness

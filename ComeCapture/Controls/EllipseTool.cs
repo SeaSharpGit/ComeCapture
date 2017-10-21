@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace ComeCapture.Controls
 {
-    public class EllipseTool: StackPanel
+    public class EllipseTool : StackPanel
     {
         static EllipseTool()
         {
@@ -13,10 +13,19 @@ namespace ComeCapture.Controls
 
         public EllipseTool()
         {
-            Current = this;
+            _Current = this;
         }
 
-        public static EllipseTool Current = null;
+        #region 属性 Current
+        private static EllipseTool _Current = null;
+        public static EllipseTool Current
+        {
+            get
+            {
+                return _Current;
+            }
+        }
+        #endregion
 
         #region LineThickness DependencyProperty
         public double LineThickness

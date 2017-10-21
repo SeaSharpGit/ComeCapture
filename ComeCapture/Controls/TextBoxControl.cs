@@ -30,8 +30,8 @@ namespace ComeCapture.Controls
         {
             base.OnApplyTemplate();
             _TextBox = GetTemplateChild("PART_TextBox") as TextBox;
-            _TextBox.MaxWidth = MainImage.Current.Width - MainImage.Current.point.X - 3;
-            _TextBox.MaxHeight = MainImage.Current.Height - MainImage.Current.point.Y - 3;
+            _TextBox.MaxWidth = (int)MainImage.Current.Width - (int)MainImage.Current.point.X - 3;
+            _TextBox.MaxHeight = (int)MainImage.Current.Height - (int)MainImage.Current.point.Y - 3;
         }
 
         #region BorderColor DependencyProperty
@@ -82,18 +82,16 @@ namespace ComeCapture.Controls
             {
                 if (string.IsNullOrEmpty(_TextBox.Text))
                 {
-                    MainWindow.Current.MainCanvas.Children.Remove(this);
+                    MainWindow.AddControl(this);
                 }
                 else
                 {
-                    MainImage.Current.ResetLimit(Canvas.GetLeft(this), Canvas.GetTop(this), (int)(Canvas.GetLeft(this) + ActualWidth), (int)(Canvas.GetTop(this) + ActualHeight));
+                    MainImage.Current.ResetLimit((int)Canvas.GetLeft(this), (int)Canvas.GetTop(this), (int)(Canvas.GetLeft(this) + ActualWidth), (int)(Canvas.GetTop(this) + ActualHeight));
                     MainWindow.Register(this);
                 }
                 MainImage.Current._Text = null;
             }
         }
         #endregion
-
-
     }
 }

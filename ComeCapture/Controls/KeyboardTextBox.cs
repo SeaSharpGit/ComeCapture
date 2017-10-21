@@ -17,9 +17,7 @@ namespace ComeCapture.Controls
             DataContext = AppModel.Current;
         }
 
-        /// <summary>
-        /// 只允许输入数字以及字母
-        /// </summary>
+        #region 键盘事件：只允许输入数字以及字母
         private void Keyboard_KeyDown(object sender, KeyEventArgs e)
         {
             var key = (int)e.Key;
@@ -37,7 +35,7 @@ namespace ComeCapture.Controls
             }
             e.Handled = true;
         }
+        #endregion
 
-        
     }
 }

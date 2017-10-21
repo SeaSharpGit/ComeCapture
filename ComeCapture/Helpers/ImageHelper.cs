@@ -1,7 +1,7 @@
-﻿using ComeCapture.Controls;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
@@ -53,8 +53,6 @@ namespace ComeCapture.Helpers
         public static BitmapSource GetFullBitmapSource()
         {
             var bounds = ScreenHelper.GetPhysicalDisplaySize();
-            var screenWidth = bounds.Width;
-            var screenHeight = bounds.Height;
             _Bitmap = new Bitmap(bounds.Width, bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             var bmpGraphics = Graphics.FromImage(_Bitmap);
             bmpGraphics.CopyFromScreen(0, 0, 0, 0, _Bitmap.Size);
@@ -68,11 +66,20 @@ namespace ComeCapture.Helpers
 
         #region 获取RGB
         private static Bitmap _Bitmap = null;
+        private static StringBuilder sb = new StringBuilder();
         public static string GetRGB(System.Windows.Point point)
         {
             var color = _Bitmap.GetPixel((int)point.X, (int)point.Y);
-            return "RGB:（" + color.R.ToString() + "," + color.G.ToString() + "," + color.B.ToString() + "）";
-        } 
+            sb.Clear();
+            sb.Append("RGB:（");
+            sb.Append(color.R.ToString());
+            sb.Append(",");
+            sb.Append(color.G.ToString());
+            sb.Append(",");
+            sb.Append(color.B.ToString());
+            sb.Append("）");
+            return sb.ToString();
+        }
         #endregion
     }
 }

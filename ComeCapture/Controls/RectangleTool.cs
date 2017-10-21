@@ -13,10 +13,19 @@ namespace ComeCapture.Controls
 
         public RectangleTool()
         {
-            Current = this;
+            _Current = this;
         }
 
-        public static RectangleTool Current = null;
+        #region 属性 Current
+        private static RectangleTool _Current = null;
+        public static RectangleTool Current
+        {
+            get
+            {
+                return _Current;
+            }
+        }
+        #endregion
 
         #region LineThickness DependencyProperty
         public double LineThickness
@@ -65,9 +74,5 @@ namespace ComeCapture.Controls
 
         }
         #endregion
-
-
-
-
     }
 }

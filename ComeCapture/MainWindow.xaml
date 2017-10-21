@@ -19,8 +19,8 @@
     <Grid>
         <Canvas x:Name="MainCanvas" Background="Transparent" Margin="0,0">
             <!--遮罩-->
-            <Canvas x:Name="MaskLeft" Background="Black" Opacity="0.5" Canvas.Left="0" Canvas.Top="0" Width="{Binding MaskLeftWidth}" Height="{x:Static local:MainWindow.ScreenHeight}"/>
-            <Canvas x:Name="MaskRight" Background="Black" Opacity="0.5" Canvas.Right="0" Canvas.Top="0" Width="{Binding MaskRightWidth}" Height="{x:Static local:MainWindow.ScreenHeight}"/>
+            <Canvas x:Name="MaskLeft" Background="Black" Opacity="0.5" Canvas.Left="0" Canvas.Top="0" Width="{Binding MaskLeftWidth}"/>
+            <Canvas x:Name="MaskRight" Background="Black" Opacity="0.5" Canvas.Right="0" Canvas.Top="0" Width="{Binding MaskRightWidth}"/>
             <Canvas x:Name="MaskTop" Background="Black" Opacity="0.5" Canvas.Left="{Binding ElementName=MaskLeft, Path=Width}" Canvas.Top="0" Width="{Binding MaskTopWidth}" Height="{Binding MaskTopHeight}"/>
             <Canvas x:Name="MaskBottom" Background="Black" Opacity="0.5" Canvas.Left="{Binding ElementName=MaskLeft, Path=Width}" Canvas.Bottom="0" Width="{Binding ElementName=MaskTop, Path=Width}" Height="{Binding MaskBottomHeight}"/>
             

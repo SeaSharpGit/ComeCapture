@@ -14,10 +14,19 @@ namespace ComeCapture.Controls
 
         public TextTool()
         {
-            Current = this;
+            _Current = this;
         }
 
-        public static TextTool Current = null;
+        #region 属性 Current
+        private static TextTool _Current = null;
+        public static TextTool Current
+        {
+            get
+            {
+                return _Current;
+            }
+        }
+        #endregion
 
         #region 属性 FontSizes
         private static Dictionary<int, int> _FontSizes;
@@ -95,9 +104,5 @@ namespace ComeCapture.Controls
 
         }
         #endregion
-
-        
-
-
     }
 }

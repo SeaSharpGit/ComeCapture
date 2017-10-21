@@ -70,10 +70,6 @@ namespace ComeCapture.Controls
         {
             get
             {
-                if (_Current == null)
-                {
-                    _Current = new SizeColorBar();
-                }
                 return _Current;
             }
         }
@@ -128,14 +124,14 @@ namespace ComeCapture.Controls
         #endregion
 
         #region CanvasLeft DependencyProperty
-        public double CanvasLeft
+        public int CanvasLeft
         {
-            get { return (double)GetValue(CanvasLeftProperty); }
+            get { return (int)GetValue(CanvasLeftProperty); }
             set { SetValue(CanvasLeftProperty, value); }
         }
         public static readonly DependencyProperty CanvasLeftProperty =
-                DependencyProperty.Register("CanvasLeft", typeof(double), typeof(SizeColorBar),
-                new PropertyMetadata(0.0, new PropertyChangedCallback(SizeColorBar.OnCanvasLeftPropertyChanged)));
+                DependencyProperty.Register("CanvasLeft", typeof(int), typeof(SizeColorBar),
+                new PropertyMetadata(0, new PropertyChangedCallback(SizeColorBar.OnCanvasLeftPropertyChanged)));
 
         private static void OnCanvasLeftPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
@@ -157,14 +153,14 @@ namespace ComeCapture.Controls
         #endregion
 
         #region CanvasTop DependencyProperty
-        public double CanvasTop
+        public int CanvasTop
         {
-            get { return (double)GetValue(CanvasTopProperty); }
+            get { return (int)GetValue(CanvasTopProperty); }
             set { SetValue(CanvasTopProperty, value); }
         }
         public static readonly DependencyProperty CanvasTopProperty =
-                DependencyProperty.Register("CanvasTop", typeof(double), typeof(SizeColorBar),
-                new PropertyMetadata(0.0, new PropertyChangedCallback(SizeColorBar.OnCanvasTopPropertyChanged)));
+                DependencyProperty.Register("CanvasTop", typeof(int), typeof(SizeColorBar),
+                new PropertyMetadata(0, new PropertyChangedCallback(SizeColorBar.OnCanvasTopPropertyChanged)));
 
         private static void OnCanvasTopPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
@@ -219,6 +215,5 @@ namespace ComeCapture.Controls
             }
         }
         #endregion
-
     }
 }

@@ -74,7 +74,6 @@
     <Compile Include="Controls\ArrowTool.cs" />
     <Compile Include="Controls\EllipseTool.cs" />
     <Compile Include="Controls\ImageEditBar.cs" />
-    <Compile Include="Controls\ImageEditor.cs" />
     <Compile Include="Controls\KeyboardTextBox.cs" />
     <Compile Include="Controls\LineTool.cs" />
     <Compile Include="Controls\MainImage.cs" />
@@ -88,7 +87,6 @@
     <Compile Include="Converters\ColorConverter.cs" />
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\Limit.cs" />
-    <Compile Include="Models\NameAndLimit.cs" />
     <Compile Include="Converters\SizeConverter.cs" />
     <Compile Include="Models\Tool.cs" />
     <Compile Include="Converters\ToolConverter.cs" />

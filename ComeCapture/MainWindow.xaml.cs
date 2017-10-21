@@ -1,15 +1,12 @@
 ﻿using ComeCapture.Controls;
-using ComeCapture.Models;
 using ComeCapture.Helpers;
+using ComeCapture.Models;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -20,8 +17,8 @@ namespace ComeCapture
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static double ScreenWidth = SystemParameters.PrimaryScreenWidth;
-        public static double ScreenHeight = SystemParameters.PrimaryScreenHeight;
+        public static int ScreenWidth = (int)SystemParameters.PrimaryScreenWidth;
+        public static int ScreenHeight = (int)SystemParameters.PrimaryScreenHeight;
         public static int MinSize = 10;
 
         //画图注册名称集合
@@ -41,10 +38,12 @@ namespace ComeCapture
         {
             _Current = this;
             InitializeComponent();
-            DataContext = AppModel.Current;
+            DataContext = new AppModel();
             Background = new ImageBrush(ImageHelper.GetFullBitmapSource());
             WpfHelper.MainDispatcher = Dispatcher;
             MaxWindow();
+            MaskLeft.Height = ScreenHeight;
+            MaskRight.Height = ScreenHeight;
         }
 
         #region 属性 Current
@@ -66,16 +65,23 @@ namespace ComeCapture
             Width = ScreenWidth;
             Height = ScreenHeight;
             Activate();
-        } 
+        }
         #endregion
 
         #region 注册画图
         public static void Register(object control)
         {
-            var name = "Draw" + Current.num;
-            Current.MainCanvas.RegisterName(name, control);
-            Current.list.Add(new NameAndLimit(name));
-            Current.num++;
+            var name = "Draw" + _Current.num;
+            _Current.MainCanvas.RegisterName(name, control);
+            _Current.list.Add(new NameAndLimit(name));
+            _Current.num++;
+        }
+        #endregion
+
+        #region 截图区域添加画图
+        public static void AddControl(UIElement e)
+        {
+            _Current.MainCanvas.Children.Add(e);
         }
         #endregion
 
@@ -91,7 +97,7 @@ namespace ComeCapture
                     MainCanvas.Children.Remove(obj as UIElement);
                     MainCanvas.UnregisterName(name);
                     list.RemoveAt(list.Count - 1);
-                    MainImage.Current.Limit = list.Count == 0 ? new Limit() : list[list.Count - 1].Limit;
+                    MainImage.Limit = list.Count == 0 ? new Limit() : list[list.Count - 1].Limit;
                 }
             }
         }
@@ -134,8 +140,8 @@ namespace ComeCapture
         #region 获取截图
         private BitmapSource GetCapture()
         {
-            return ImageHelper.GetBitmapSource((int)AppModel.Current.MaskLeftWidth + 1, (int)AppModel.Current.MaskTopHeight + 1, (int)MainImage.Current.ActualWidth - 2, (int)MainImage.Current.ActualHeight - 2); ;
-        } 
+            return ImageHelper.GetBitmapSource((int)AppModel.Current.MaskLeftWidth + 1, (int)AppModel.Current.MaskTopHeight + 1, (int)MainImage.ActualWidth - 2, (int)MainImage.ActualHeight - 2); ;
+        }
         #endregion
 
         #region 退出截图
@@ -183,7 +189,7 @@ namespace ComeCapture
                 ImageEditBar.Current.Visibility = Visibility.Collapsed;
                 SizeColorBar.Current.Visibility = Visibility.Collapsed;
             }
-            MainImage.Current.ZoomThumbVisibility = Visibility.Collapsed;
+            MainImage.ZoomThumbVisibility = Visibility.Collapsed;
         }
         #endregion
 
@@ -198,8 +204,8 @@ namespace ComeCapture
             _X0 = (int)point.X;
             _Y0 = (int)point.Y;
             _IsMouseDown = true;
-            Canvas.SetLeft(MainImage.Current, _X0);
-            Canvas.SetTop(MainImage.Current, _Y0);
+            Canvas.SetLeft(MainImage, _X0);
+            Canvas.SetTop(MainImage, _Y0);
             AppModel.Current.MaskLeftWidth = _X0;
             AppModel.Current.MaskRightWidth = ScreenWidth - _X0;
             AppModel.Current.MaskTopHeight = _Y0;
@@ -213,7 +219,7 @@ namespace ComeCapture
                 return;
             }
             _IsMouseDown = false;
-            if (MainImage.Current.Width >= MinSize && MainImage.Current.Height >= MinSize)
+            if (MainImage.Width >= MinSize && MainImage.Height >= MinSize)
             {
                 _IsCapture = true;
                 ImageEditBar.Current.Visibility = Visibility.Visible;
@@ -225,16 +231,35 @@ namespace ComeCapture
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
             var point = e.GetPosition(this);
+            //123
             AppModel.Current.SetRGB(point);
             if (_IsCapture)
             {
                 return;
             }
+
+            //123
             if (Show_RGB.Visibility == Visibility.Collapsed)
             {
                 Show_RGB.Visibility = Visibility.Visible;
             }
 
+            //if (!_IsCapture && !_IsMouseDown)
+            //{
+            //    if (Show_RGB.Visibility == Visibility.Collapsed)
+            //    {
+            //        Show_RGB.Visibility = Visibility.Visible;
+            //    }
+            //    AppModel.Current.SetRGB(point);
+            //}
+            //else
+            //{
+            //    if(Show_RGB.Visibility == Visibility.Visible)
+            //    {
+            //        Show_RGB.Visibility = Visibility.Collapsed;
+            //    }
+            //}
+            
             if (_IsMouseDown)
             {
                 var w = (int)point.X - _X0;
@@ -243,21 +268,21 @@ namespace ComeCapture
                 {
                     return;
                 }
-                if (MainImage.Current.Visibility != Visibility.Visible)
+                if (MainImage.Visibility == Visibility.Collapsed)
                 {
-                    MainImage.Current.Visibility = Visibility.Visible;
+                    MainImage.Visibility = Visibility.Visible;
                 }
-                AppModel.Current.MaskRightWidth = ScreenWidth - point.X;
+                AppModel.Current.MaskRightWidth = ScreenWidth - (int)point.X;
                 AppModel.Current.MaskTopWidth = w;
-                AppModel.Current.MaskBottomHeight = ScreenHeight - point.Y;
+                AppModel.Current.MaskBottomHeight = ScreenHeight - (int)point.Y;
                 AppModel.Current.ChangeShowSize();
-                MainImage.Current.Width = w;
-                MainImage.Current.Height = h;
+                MainImage.Width = w;
+                MainImage.Height = h;
             }
             else
             {
-                AppModel.Current.ShowSizeLeft = point.X;
-                AppModel.Current.ShowSizeTop = ScreenHeight - point.Y < 30 ? point.Y - 30 : point.Y + 10;
+                AppModel.Current.ShowSizeLeft = (int)point.X;
+                AppModel.Current.ShowSizeTop = ScreenHeight - (int)point.Y < 30 ? (int)point.Y - 30 : (int)point.Y + 10;
             }
         }
 
@@ -269,7 +294,6 @@ namespace ComeCapture
             }
         }
         #endregion
-
 
     }
 }
