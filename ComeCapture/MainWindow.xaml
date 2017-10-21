@@ -31,8 +31,8 @@
             </StackPanel>
 
             <ctrl:MainImage x:Name="MainImage"/>
-            <ctrl:ImageEditBar/>
-            <ctrl:SizeColorBar/>
+            <ctrl:ImageEditBar x:Name="ImageEditBar"/>
+            <ctrl:SizeColorBar x:Name="SizeColorBar"/>
         </Canvas>
     </Grid>
 </Window>

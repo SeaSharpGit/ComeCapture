@@ -124,9 +124,9 @@ namespace ComeCapture
         public void ChangeShowSize()
         {
             sb.Clear();
-            sb.Append((int)MainImage.Current.Width);
+            sb.Append((int)MainWindow.Current.MainImage.Width);
             sb.Append(" × ");
-            sb.Append((int)MainImage.Current.Height);
+            sb.Append((int)MainWindow.Current.MainImage.Height);
             ShowSize = sb.ToString();
         }
         #endregion

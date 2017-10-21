@@ -85,6 +85,13 @@ namespace ComeCapture
         }
         #endregion
 
+        #region 截图区域添加画图
+        public static void RemoveControl(UIElement e)
+        {
+            _Current.MainCanvas.Children.Remove(e);
+        }
+        #endregion
+
         #region 撤销
         public void OnRevoke()
         {
@@ -259,7 +266,7 @@ namespace ComeCapture
             //        Show_RGB.Visibility = Visibility.Collapsed;
             //    }
             //}
-            
+
             if (_IsMouseDown)
             {
                 var w = (int)point.X - _X0;

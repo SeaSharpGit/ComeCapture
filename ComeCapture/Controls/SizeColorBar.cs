@@ -72,6 +72,10 @@ namespace ComeCapture.Controls
             {
                 return _Current;
             }
+            set
+            {
+                _Current = value;
+            }
         }
         #endregion
 
@@ -207,11 +211,11 @@ namespace ComeCapture.Controls
             ResetCanvas();
             if (Selected == Tool.Null)
             {
-                MainImage.Current.MoveCursor = Cursors.SizeAll;
+                MainWindow.Current.MainImage.MoveCursor = Cursors.SizeAll;
             }
             else
             {
-                MainImage.Current.MoveCursor = Cursors.Pen;
+                MainWindow.Current.MainImage.MoveCursor = Cursors.Pen;
             }
         }
         #endregion

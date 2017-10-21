@@ -34,7 +34,7 @@ namespace ComeCapture.Models
         public NameAndLimit(string name)
         {
             Name = name;
-            Limit = MainImage.Current.Limit.Clone();
+            Limit = MainWindow.Current.MainImage.Limit.Clone();
         }
     }
 }

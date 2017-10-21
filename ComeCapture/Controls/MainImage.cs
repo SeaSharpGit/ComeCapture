@@ -45,6 +45,10 @@ namespace ComeCapture.Controls
             {
                 return _Current;
             }
+            set
+            {
+                _Current = value;
+            }
         }
         #endregion
 
