@@ -97,7 +97,7 @@ namespace ComeCapture.Controls
                         new SolidColorBrush(Colors.Blue),
                         new SolidColorBrush(Colors.Maroon),
                         new SolidColorBrush(Colors.CadetBlue),
-                        //new SolidColorBrush(Colors.HotPink),
+                        new SolidColorBrush(Colors.HotPink),
 
                         new SolidColorBrush(Colors.White),
                         new SolidColorBrush(Colors.LightGray),
@@ -106,8 +106,8 @@ namespace ComeCapture.Controls
                         new SolidColorBrush(Colors.YellowGreen),
                         new SolidColorBrush(Colors.DodgerBlue),
                         new SolidColorBrush(Colors.Magenta),
-                        new SolidColorBrush(Colors.Cyan)
-                        //new SolidColorBrush(Colors.MistyRose)
+                        new SolidColorBrush(Colors.Cyan),
+                        new SolidColorBrush(Colors.MistyRose)
                     };
                 }
                 return _ColorBars;

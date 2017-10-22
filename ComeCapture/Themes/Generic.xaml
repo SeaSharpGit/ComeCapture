@@ -206,7 +206,7 @@
 
     <!--尺寸颜色栏基础样式-->
     <Style x:Key="BaseSizeColor" TargetType="{x:Type StackPanel}">
-        <Setter Property="Width" Value="255"/>
+        <Setter Property="Width" Value="270"/>
         <Setter Property="Height" Value="35"/>
         <Setter Property="Orientation" Value="Horizontal"/>
         <Setter Property="Visibility" Value="Collapsed"/>
@@ -233,7 +233,7 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <UniformGrid Rows="2" Columns="8" Height="32"/>
+                    <UniformGrid Rows="2" Columns="9" Height="32"/>
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
@@ -258,7 +258,6 @@
                             <control:ToolButton Style="{StaticResource SizeButton}" GroupName="RectangleTool" IsChecked="{Binding ElementName=PART_RectangleTool, Path=LineThickness,Converter={StaticResource SizeConverter},ConverterParameter={StaticResource Large}}">
                                 <Ellipse Width="{StaticResource Large}" Height="{StaticResource Large}" Fill="{StaticResource ToolColor}"/>
                             </control:ToolButton>
-
                             <Grid Background="White" Width="29" Height="29" Margin="5,0,5,0">
                                 <Border BorderBrush="{StaticResource ToolButtonBorder}" BorderThickness="1">
                                     <Canvas Width="25" Height="25" Background="{Binding ElementName=PART_RectangleTool,Path=LineBrush}"/>

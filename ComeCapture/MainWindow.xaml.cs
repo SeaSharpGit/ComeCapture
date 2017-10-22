@@ -238,34 +238,16 @@ namespace ComeCapture
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
             var point = e.GetPosition(this);
-            //123
             AppModel.Current.SetRGB(point);
             if (_IsCapture)
             {
                 return;
             }
-
-            //123
+            
             if (Show_RGB.Visibility == Visibility.Collapsed)
             {
                 Show_RGB.Visibility = Visibility.Visible;
             }
-
-            //if (!_IsCapture && !_IsMouseDown)
-            //{
-            //    if (Show_RGB.Visibility == Visibility.Collapsed)
-            //    {
-            //        Show_RGB.Visibility = Visibility.Visible;
-            //    }
-            //    AppModel.Current.SetRGB(point);
-            //}
-            //else
-            //{
-            //    if(Show_RGB.Visibility == Visibility.Visible)
-            //    {
-            //        Show_RGB.Visibility = Visibility.Collapsed;
-            //    }
-            //}
 
             if (_IsMouseDown)
             {
