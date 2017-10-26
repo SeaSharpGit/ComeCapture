@@ -1,4 +1,4 @@
 
-<img src="https://github.com/SeaSharpGit/ComeCapture/raw/master/ComeCapture/Resources/cut.ico" width="30" height="30"/>  # ComeCapture <br/>
+<img src="https://github.com/SeaSharpGit/ComeCapture/raw/master/ComeCapture/Resources/cut.ico" width="30" height="30"/><h1>ComeCapture</h1><hr/><br/>
 A screen capture tool with WPF<br/>
 <img src="https://github.com/SeaSharpGit/ComeCapture/raw/master/ComeCapture/Resources/showyou.png"/>
