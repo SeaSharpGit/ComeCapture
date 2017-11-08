@@ -17,8 +17,8 @@ namespace ComeCapture
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static int ScreenWidth = (int)SystemParameters.PrimaryScreenWidth;
-        public static int ScreenHeight = (int)SystemParameters.PrimaryScreenHeight;
+        public static double ScreenWidth = SystemParameters.PrimaryScreenWidth;
+        public static double ScreenHeight = SystemParameters.PrimaryScreenHeight;
         public static double ScreenScale = 1;
         public static int MinSize = 10;
 
@@ -32,13 +32,12 @@ namespace ComeCapture
         //是否截图完毕
         private bool _IsCapture = false;
 
-        private int _X0 = 0;
-        private int _Y0 = 0;
+        private double _X0 = 0;
+        private double _Y0 = 0;
 
         public MainWindow()
         {
             _Current = this;
-            
             InitializeComponent();
             DataContext = new AppModel();
             Background = new ImageBrush(ImageHelper.GetFullBitmapSource());
@@ -89,7 +88,7 @@ namespace ComeCapture
         }
         #endregion
 
-        #region 截图区域添加画图
+        #region 截图区域撤回画图
         public static void RemoveControl(UIElement e)
         {
             _Current.MainCanvas.Children.Remove(e);
@@ -212,8 +211,8 @@ namespace ComeCapture
                 return;
             }
             var point = e.GetPosition(this);
-            _X0 = (int)point.X;
-            _Y0 = (int)point.Y;
+            _X0 = point.X;
+            _Y0 = point.Y;
             _IsMouseDown = true;
             Canvas.SetLeft(MainImage, _X0);
             Canvas.SetTop(MainImage, _Y0);
@@ -256,8 +255,8 @@ namespace ComeCapture
 
             if (_IsMouseDown)
             {
-                var w = (int)point.X - _X0;
-                var h = (int)point.Y - _Y0;
+                var w = point.X - _X0;
+                var h = point.Y - _Y0;
                 if (w < MinSize || h < MinSize)
                 {
                     return;
@@ -266,17 +265,17 @@ namespace ComeCapture
                 {
                     MainImage.Visibility = Visibility.Visible;
                 }
-                AppModel.Current.MaskRightWidth = ScreenWidth - (int)point.X;
+                AppModel.Current.MaskRightWidth = ScreenWidth - point.X;
                 AppModel.Current.MaskTopWidth = w;
-                AppModel.Current.MaskBottomHeight = ScreenHeight - (int)point.Y;
+                AppModel.Current.MaskBottomHeight = ScreenHeight - point.Y;
                 AppModel.Current.ChangeShowSize();
                 MainImage.Width = w;
                 MainImage.Height = h;
             }
             else
             {
-                AppModel.Current.ShowSizeLeft = (int)point.X;
-                AppModel.Current.ShowSizeTop = ScreenHeight - (int)point.Y < 30 ? (int)point.Y - 30 : (int)point.Y + 10;
+                AppModel.Current.ShowSizeLeft = point.X;
+                AppModel.Current.ShowSizeTop = ScreenHeight - point.Y < 30 ? point.Y - 30 : point.Y + 10;
             }
         }
 

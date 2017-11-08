@@ -128,14 +128,14 @@ namespace ComeCapture.Controls
         #endregion
 
         #region CanvasLeft DependencyProperty
-        public int CanvasLeft
+        public double CanvasLeft
         {
-            get { return (int)GetValue(CanvasLeftProperty); }
+            get { return (double)GetValue(CanvasLeftProperty); }
             set { SetValue(CanvasLeftProperty, value); }
         }
         public static readonly DependencyProperty CanvasLeftProperty =
-                DependencyProperty.Register("CanvasLeft", typeof(int), typeof(SizeColorBar),
-                new PropertyMetadata(0, new PropertyChangedCallback(SizeColorBar.OnCanvasLeftPropertyChanged)));
+                DependencyProperty.Register("CanvasLeft", typeof(double), typeof(SizeColorBar),
+                new PropertyMetadata(0.0, new PropertyChangedCallback(SizeColorBar.OnCanvasLeftPropertyChanged)));
 
         private static void OnCanvasLeftPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
@@ -157,14 +157,14 @@ namespace ComeCapture.Controls
         #endregion
 
         #region CanvasTop DependencyProperty
-        public int CanvasTop
+        public double CanvasTop
         {
-            get { return (int)GetValue(CanvasTopProperty); }
+            get { return (double)GetValue(CanvasTopProperty); }
             set { SetValue(CanvasTopProperty, value); }
         }
         public static readonly DependencyProperty CanvasTopProperty =
-                DependencyProperty.Register("CanvasTop", typeof(int), typeof(SizeColorBar),
-                new PropertyMetadata(0, new PropertyChangedCallback(SizeColorBar.OnCanvasTopPropertyChanged)));
+                DependencyProperty.Register("CanvasTop", typeof(double), typeof(SizeColorBar),
+                new PropertyMetadata(0.0, new PropertyChangedCallback(SizeColorBar.OnCanvasTopPropertyChanged)));
 
         private static void OnCanvasTopPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {

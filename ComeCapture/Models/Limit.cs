@@ -7,10 +7,10 @@ namespace ComeCapture.Models
     /// </summary>
     public class Limit
     {
-        public int Left { get; set; } = MainWindow.ScreenWidth;
-        public int Right { get; set; } = 0;
-        public int Top { get; set; } = MainWindow.ScreenHeight;
-        public int Bottom { get; set; } = 0;
+        public double Left { get; set; } = MainWindow.ScreenWidth;
+        public double Right { get; set; } = 0;
+        public double Top { get; set; } = MainWindow.ScreenHeight;
+        public double Bottom { get; set; } = 0;
 
         public Limit Clone()
         {

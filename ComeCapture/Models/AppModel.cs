@@ -23,8 +23,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 MaskLeftWidth
-        private int _MaskLeftWidth = MainWindow.ScreenWidth;
-        public int MaskLeftWidth
+        private double _MaskLeftWidth = MainWindow.ScreenWidth;
+        public double MaskLeftWidth
         {
             get
             {
@@ -40,8 +40,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 MaskRightWidth
-        private int _MaskRightWidth = 0;
-        public int MaskRightWidth
+        private double _MaskRightWidth = 0;
+        public double MaskRightWidth
         {
             get
             {
@@ -56,8 +56,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 MaskTopWidth
-        private int _MaskTopWidth = 0;
-        public int MaskTopWidth
+        private double _MaskTopWidth = 0;
+        public double MaskTopWidth
         {
             get
             {
@@ -72,8 +72,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 MaskTopHeight
-        private int _MaskTopHeight = 0;
-        public int MaskTopHeight
+        private double _MaskTopHeight = 0;
+        public double MaskTopHeight
         {
             get
             {
@@ -89,8 +89,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 MaskBottomHeight
-        private int _MaskBottomHeight = 0;
-        public int MaskBottomHeight
+        private double _MaskBottomHeight = 0;
+        public double MaskBottomHeight
         {
             get
             {
@@ -131,8 +131,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 ShowSizeLeft
-        private int _ShowSizeLeft = 0;
-        public int ShowSizeLeft
+        private double _ShowSizeLeft = 0;
+        public double ShowSizeLeft
         {
             get
             {
@@ -147,8 +147,8 @@ namespace ComeCapture
         #endregion
 
         #region 属性 ShowSizeTop
-        private int _ShowSizeTop = 0;
-        public int ShowSizeTop
+        private double _ShowSizeTop = 0;
+        public double ShowSizeTop
         {
             get
             {

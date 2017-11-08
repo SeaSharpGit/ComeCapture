@@ -40,14 +40,14 @@ namespace ComeCapture.Controls
         #endregion
 
         #region CanvasLeft DependencyProperty
-        public int CanvasLeft
+        public double CanvasLeft
         {
-            get { return (int)GetValue(CanvasLeftProperty); }
+            get { return (double)GetValue(CanvasLeftProperty); }
             set { SetValue(CanvasLeftProperty, value); }
         }
         public static readonly DependencyProperty CanvasLeftProperty =
-                DependencyProperty.Register("CanvasLeft", typeof(int), typeof(ImageEditBar),
-                new PropertyMetadata(0, new PropertyChangedCallback(ImageEditBar.OnCanvasLeftPropertyChanged)));
+                DependencyProperty.Register("CanvasLeft", typeof(double), typeof(ImageEditBar),
+                new PropertyMetadata(0.0, new PropertyChangedCallback(ImageEditBar.OnCanvasLeftPropertyChanged)));
 
         private static void OnCanvasLeftPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
@@ -64,19 +64,19 @@ namespace ComeCapture.Controls
 
         private void ResetCanvasLeft()
         {
-            CanvasLeft = AppModel.Current.MaskRightWidth > MainWindow.ScreenWidth - Width ? 0 : MainWindow.ScreenWidth - AppModel.Current.MaskRightWidth - (int)Width;
+            CanvasLeft = AppModel.Current.MaskRightWidth > MainWindow.ScreenWidth - Width ? 0 : MainWindow.ScreenWidth - AppModel.Current.MaskRightWidth - Width;
         }
         #endregion
 
         #region CanvasTop DependencyProperty
-        public int CanvasTop
+        public double CanvasTop
         {
-            get { return (int)GetValue(CanvasTopProperty); }
+            get { return (double)GetValue(CanvasTopProperty); }
             set { SetValue(CanvasTopProperty, value); }
         }
         public static readonly DependencyProperty CanvasTopProperty =
-                DependencyProperty.Register("CanvasTop", typeof(int), typeof(ImageEditBar),
-                new PropertyMetadata(0, new PropertyChangedCallback(ImageEditBar.OnCanvasTopPropertyChanged)));
+                DependencyProperty.Register("CanvasTop", typeof(double), typeof(ImageEditBar),
+                new PropertyMetadata(0.0, new PropertyChangedCallback(ImageEditBar.OnCanvasTopPropertyChanged)));
 
         private static void OnCanvasTopPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {

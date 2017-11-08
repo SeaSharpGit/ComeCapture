@@ -6,11 +6,6 @@ namespace ComeCapture.Helpers
 {
     public static class ScreenHelper
     {
-        static ScreenHelper()
-        {
-
-        }
-
         [DllImport("user32.dll", EntryPoint = "ReleaseDC")]
         public static extern IntPtr ReleaseDC(
             IntPtr hWnd,
