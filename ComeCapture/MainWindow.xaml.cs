@@ -19,6 +19,7 @@ namespace ComeCapture
     {
         public static int ScreenWidth = (int)SystemParameters.PrimaryScreenWidth;
         public static int ScreenHeight = (int)SystemParameters.PrimaryScreenHeight;
+        public static double ScreenScale = 1;
         public static int MinSize = 10;
 
         //画图注册名称集合
@@ -37,6 +38,7 @@ namespace ComeCapture
         public MainWindow()
         {
             _Current = this;
+            
             InitializeComponent();
             DataContext = new AppModel();
             Background = new ImageBrush(ImageHelper.GetFullBitmapSource());
@@ -44,6 +46,8 @@ namespace ComeCapture
             MaxWindow();
             MaskLeft.Height = ScreenHeight;
             MaskRight.Height = ScreenHeight;
+            //计算Windows项目缩放比例
+            ScreenHelper.ResetScreenScale();
         }
 
         #region 属性 Current
@@ -238,12 +242,13 @@ namespace ComeCapture
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
             var point = e.GetPosition(this);
-            AppModel.Current.SetRGB(point);
+            var screenP = PointToScreen(point);
+            AppModel.Current.ShowRGB = ImageHelper.GetRGB((int)screenP.X, (int)screenP.Y);
             if (_IsCapture)
             {
                 return;
             }
-            
+
             if (Show_RGB.Visibility == Visibility.Collapsed)
             {
                 Show_RGB.Visibility = Visibility.Visible;

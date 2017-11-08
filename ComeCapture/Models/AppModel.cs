@@ -1,5 +1,4 @@
-﻿using ComeCapture.Controls;
-using ComeCapture.Helpers;
+﻿using ComeCapture.Helpers;
 using ComeCapture.Models;
 using System.Text;
 
@@ -124,9 +123,9 @@ namespace ComeCapture
         public void ChangeShowSize()
         {
             sb.Clear();
-            sb.Append((int)MainWindow.Current.MainImage.Width);
+            sb.Append((int)(MainWindow.Current.MainImage.Width * MainWindow.ScreenScale));
             sb.Append(" × ");
-            sb.Append((int)MainWindow.Current.MainImage.Height);
+            sb.Append((int)(MainWindow.Current.MainImage.Height * MainWindow.ScreenScale));
             ShowSize = sb.ToString();
         }
         #endregion
@@ -176,11 +175,6 @@ namespace ComeCapture
                 _ShowRGB = value;
                 RaisePropertyChanged(() => ShowRGB);
             }
-        }
-
-        public void SetRGB(System.Windows.Point point)
-        {
-            ShowRGB = ImageHelper.GetRGB(point);
         }
         #endregion
 

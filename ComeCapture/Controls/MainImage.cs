@@ -1,4 +1,5 @@
-﻿using ComeCapture.Models;
+﻿using ComeCapture.Helpers;
+using ComeCapture.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -644,7 +645,8 @@ namespace ComeCapture.Controls
         #region 刷新RGB
         private void OnMove(object sender, MouseEventArgs e)
         {
-            AppModel.Current.SetRGB(PointToScreen(e.GetPosition(this)));
+            var point = PointToScreen(e.GetPosition(this));
+            AppModel.Current.ShowRGB= ImageHelper.GetRGB((int)point.X, (int)point.Y);
         }
         #endregion
 
