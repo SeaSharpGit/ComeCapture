@@ -363,7 +363,7 @@ namespace ComeCapture.Controls
         #region 画箭头
         private void DrawArrow(double X, double Y)
         {
-            var screen = PointToScreen(point);
+            var screen = new Point(point.X + AppModel.Current.MaskLeftWidth, point.Y + AppModel.Current.MaskTopHeight);
             if (_Arrow == null)
             {
                 _Arrow = new Path()
@@ -400,7 +400,7 @@ namespace ComeCapture.Controls
         #region 画刷
         private void DrawLine(double X, double Y)
         {
-            var screen = PointToScreen(point);
+            var screen = new Point(point.X + AppModel.Current.MaskLeftWidth, point.Y + AppModel.Current.MaskTopHeight);
             if (_Line == null)
             {
                 _Line = new Path()
@@ -459,7 +459,7 @@ namespace ComeCapture.Controls
                 {
                     point.Y = Height - 22;
                 }
-                var screen = PointToScreen(point);
+                var screen = new Point(point.X + AppModel.Current.MaskLeftWidth, point.Y + AppModel.Current.MaskTopHeight);
                 Canvas.SetLeft(_Text, screen.X);
                 Canvas.SetTop(_Text, screen.Y);
                 MainWindow.AddControl(_Text);
