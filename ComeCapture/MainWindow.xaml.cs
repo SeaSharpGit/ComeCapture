@@ -128,7 +128,7 @@ namespace ComeCapture
                 Hidden();
                 Thread t = new Thread(new ThreadStart(() =>
                 {
-                    Thread.Sleep(150);
+                    Thread.Sleep(200);
                     WpfHelper.SafeRun(() =>
                     {
                         var source = GetCapture();
